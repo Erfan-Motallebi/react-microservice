@@ -20,20 +20,18 @@ function Posts() {
   return (
     <div>
       <div className="row">
-        <section>
-          {posts.map(({ id, title }) => {
-            return (
-              <div className="col-4 mt-4" key={id}>
-                <CreateComment postI={id} />
-                <ul className="list-group">
-                  <li className="list-group-item">
-                    <h4>{title}</h4>
-                  </li>
-                </ul>
-              </div>
-            );
-          })}
-        </section>
+        {posts.map(({ id, title }) => {
+          return (
+            <div className="col-4 mt-4" key={id}>
+              <CreateComment postId={id} />
+              <ul className="list-group">
+                <li className="list-group-item">
+                  <h4>{title}</h4>
+                </li>
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

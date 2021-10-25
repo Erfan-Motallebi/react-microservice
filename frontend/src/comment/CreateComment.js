@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-
 import axios from "axios";
+import Comment from "./Comment";
 
 function CreateComment({ postId }) {
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -14,9 +14,10 @@ function CreateComment({ postId }) {
         "Content-Type": "application/json",
       },
       data: {
-        comment,
+        content: comment,
       },
     });
+    setComment("");
   };
 
   return (
@@ -39,6 +40,7 @@ function CreateComment({ postId }) {
           </button>
         </div>
       </form>
+      {<Comment postId={postId} />}
     </div>
   );
 }
