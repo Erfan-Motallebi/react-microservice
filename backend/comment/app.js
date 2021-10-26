@@ -22,7 +22,6 @@ app.post("/post/:postId/comment", (req, res) => {
 });
 
 app.get("/post/:postId/comments", (req, res) => {
-  const { postId } = req.params;
   res.status(200).json(commentsByPost[postId] || {});
 });
 

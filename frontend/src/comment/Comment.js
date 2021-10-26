@@ -19,7 +19,6 @@ function Comment({ postId }) {
   useEffect(() => {
     fetchComment();
   }, []);
-  // console.log({ comment: comments[postId] });
   return (
     <div>
       {
