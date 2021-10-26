@@ -2,6 +2,9 @@ const express = require("express");
 const crypto = require("crypto");
 const cors = require("cors");
 
+// Sync mode of Microserivce
+const axios = require("axios");
+
 const app = express();
 
 let posts = [];
@@ -19,7 +22,7 @@ app.post("/post", (req, res) => {
   res.status(201).json(posts);
 });
 
-app.get("/posts", (req, res) => {
+app.get("/posts", async (req, res) => {
   res.status(200).json(posts);
 });
 

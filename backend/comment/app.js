@@ -25,7 +25,6 @@ app.get("/post/:postId/comments", (req, res) => {
   const { postId } = req.params;
   res.status(200).json(commentsByPost[postId] || {});
 });
-
 app.listen(5001, () => {
   console.log("Post Server is running on http://localhost:5001");
 });

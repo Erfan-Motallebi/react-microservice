@@ -15,6 +15,18 @@ function Posts() {
     setPosts(response.data);
   };
 
+  /**
+   * Sync Mode
+   */
+
+  // const fetchData = async () => {
+  //   const response = await axios.request({
+  //     url: "http://localhost:5000/posts?comments=true",
+  //     method: "GET",
+  //   });
+  //   setPosts(response.data);
+  // };
+
   useEffect(() => {
     fetchData();
   }, []);
