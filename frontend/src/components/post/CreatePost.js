@@ -17,6 +17,7 @@ function CreatePost() {
         title: post,
       },
     });
+
     setPost("");
   };
 

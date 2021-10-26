@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import CreateComment from "../../comment/CreateComment";
+import Comment from "../../comment/Comment";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -13,6 +14,7 @@ function Posts() {
     });
     setPosts(response.data);
   };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,6 +23,9 @@ function Posts() {
     <div>
       <div className="row">
         {posts.map(({ id, title }) => {
+          <section>
+            <Comment postId={id} />
+          </section>;
           return (
             <div className="col-4 mt-4" key={id}>
               <CreateComment postId={id} />

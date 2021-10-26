@@ -13,6 +13,7 @@ function Comment({ postId }) {
       },
       method: "GET",
     });
+    console.log(resp);
     setComments(resp.data);
   };
 

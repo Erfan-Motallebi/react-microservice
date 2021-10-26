@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Comment from "./Comment";
 
 function CreateComment({ postId }) {
   const [comment, setComment] = useState("");
@@ -44,7 +43,6 @@ function CreateComment({ postId }) {
           </button>
         </div>
       </form>
-      <Comment postId={postId} />
     </div>
   );
 }
