@@ -20,7 +20,8 @@ app.post("/post", (req, res) => {
 });
 
 app.get("/posts", (req, res) => {
-  res.status(200).json(posts);
+  const { comments } = req.query;
+  if (comments) res.status(200).json(posts);
 });
 
 app.listen(5000, () => {
