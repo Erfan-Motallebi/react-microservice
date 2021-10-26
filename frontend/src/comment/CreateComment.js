@@ -3,10 +3,14 @@ import axios from "axios";
 import Comment from "./Comment";
 
 function CreateComment({ postId }) {
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (comment.trim() === "") {
+      alert("Empty Comment");
+      return;
+    }
     await axios.request({
       url: `http://localhost:5001/post/${postId}/comment`,
       method: "POST",
@@ -40,7 +44,7 @@ function CreateComment({ postId }) {
           </button>
         </div>
       </form>
-      {<Comment postId={postId} />}
+      <Comment postId={postId} />
     </div>
   );
 }
