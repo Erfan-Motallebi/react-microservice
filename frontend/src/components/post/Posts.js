@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-import CreateComment from "../../comment/CreateComment";
-import Comment from "../../comment/Comment";
+import Comment from "../comment/Comment";
+import CreateComment from "../comment/CreateComment";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
