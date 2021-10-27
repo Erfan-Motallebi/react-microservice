@@ -38,18 +38,22 @@ function Posts() {
   return (
     <div>
       <div className="row">
-        {posts.map(({ id, title }) => {
+        {posts.map(({ id, title, comments }) => {
+          // console.log({ id, title, comments });
           return (
             <div className="col-4 mt-4" key={id}>
-              <CreateComment postId={id} />
-              <section>
-                <Comment postId={id} />
-              </section>
-              <ul className="list-group">
-                <li className="list-group-item">
-                  <h4>{title}</h4>
-                </li>
-              </ul>
+              <div className="card">
+                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                  {title}
+                </h4>
+                <section className="card-body">
+                  <CreateComment postId={id} />
+                  <section>
+                    {/* <Comment postId={id} /> */}
+                    <Comment comments={comments} />
+                  </section>
+                </section>
+              </div>
             </div>
           );
         })}

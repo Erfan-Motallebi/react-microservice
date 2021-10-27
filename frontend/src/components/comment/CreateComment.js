@@ -27,13 +27,13 @@ function CreateComment({ postId }) {
     <div>
       <form onSubmit={submitHandler}>
         <label htmlFor="comment" className="form-label">
-          Comment:
+          Enter a comment :
         </label>
         <input
           type="text"
           name="comment"
           id="comment"
-          className="form-control border-3"
+          className="form-control"
           placeholder="Your Comment"
           onChange={(e) => setComment(e.target.value)}
         />

@@ -1,37 +1,44 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
 
-function Comment({ postId }) {
-  const [commentsData, setCommentsData] = useState([]);
+import React, { memo } from "react";
 
-  const fetchComment = async () => {
-    const { data } = await axios.request({
-      url: `http://localhost:5002/posts`,
-      // url: `http://localhost:5001/${postId}/comments`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "GET",
-    });
+// function Comment({ postId }) {
+function Comment({ comments }) {
+  //#region Monolithic Approach
+  //  const [commentsData, setCommentsData] = useState([]);
 
-    // setCommentsData(data)
+  // const fetchComment = async () => {
 
-    /**
-     * Event-driven Micro Approach
-     */
-    // eslint-disable-next-line array-callback-return
-    const commentsRelated = data.find((post) => {
-      if (post.id === postId) {
-        return post.comments;
-      }
-    });
-    setCommentsData(commentsRelated);
-  };
+  //   const { data } = await axios.request({
+  //     url: `http://localhost:5002/posts`,
+  //     // url: `http://localhost:5001/${postId}/comments`,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     method: "GET",
+  //   });
 
-  useEffect(() => {
-    fetchComment();
-  }, []);
+  //   // setCommentsData(data)
+
+  //   /**
+  //    * Event-driven Micro Approach
+  //    */
+  //   // eslint-disable-next-line array-callback-return
+  //   const commentsRelated = data.find((post) => {
+  //     if (post.id === postId) {
+  //       return post.comments;
+  //     }
+  //   });
+  //   setCommentsData(commentsRelated);
+  // };
+
+  // useEffect(() => {
+  //   fetchComment();
+  // }, []);
+
+  //#endregion
   return (
     <div>
       {/* {
@@ -44,11 +51,31 @@ function Comment({ postId }) {
 
       } */}
       {
-        <ul>
-          {commentsData.comments &&
-            commentsData.comments.length > 0 &&
-            commentsData.comments.map(({ id, comment }) => {
-              return <li key={id}>{comment}</li>;
+        // <ul className="list-group">
+        //   {commentsData.comments &&
+        //     commentsData.comments.length > 0 &&
+        //     commentsData.comments.map(({ id, comment }) => {
+        //       return (
+        //         <li
+        //           key={id}
+        //           className="list-group-item list-group-item-primary"
+        //         >
+        //           {comment}
+        //         </li>
+        //       );
+        //     })}
+        // </ul>
+        <ul className="list-group">
+          {comments &&
+            comments.map(({ id, comment }) => {
+              return (
+                <li
+                  key={id}
+                  className="list-group-item list-group-item-primary"
+                >
+                  {comment}
+                </li>
+              );
             })}
         </ul>
       }
@@ -56,4 +83,4 @@ function Comment({ postId }) {
   );
 }
 
-export default React.memo(Comment);
+export default memo(Comment);
