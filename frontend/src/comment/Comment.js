@@ -5,6 +5,7 @@ import axios from "axios";
 function Comment({ postId }) {
   const [comments, setComments] = useState([]);
 
+  console.log("Comments");
   const fetchComment = async () => {
     const resp = await axios.request({
       url: `http://localhost:5001/post/${postId}/comments`,
