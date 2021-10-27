@@ -13,7 +13,6 @@ app.get("/posts", (req, res) => {
 });
 
 app.post("/event", (req, res) => {
-  console.log(req.body);
   const { type, data } = req.body;
 
   if (type === "CreatePost") {
@@ -26,11 +25,7 @@ app.post("/event", (req, res) => {
     const { id, comment, postId } = data;
     posts.map((post) => {
       if (postId === post.id) {
-        post.comments = {
-          id,
-          comment,
-          postId,
-        };
+        post.comments = [post, { id, comment, postId }];
       }
     });
   }

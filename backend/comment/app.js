@@ -1,7 +1,7 @@
 const express = require("express");
 const crypto = require("crypto");
 const cors = require("cors");
-const axios = require("axios");
+const axios = require("axios").default;
 
 const app = express();
 
@@ -13,14 +13,23 @@ app.use(cors());
 app.post("/post/:postId/comment", async (req, res) => {
   const { content } = req.body;
   const { postId } = req.params;
-  const randomBytes = crypto.randomBytes(5).toString("hex");
+  const id = crypto.randomBytes(5).toString("hex");
   let comments = commentsByPost[postId] || [];
   comments.push({
-    id: randomBytes,
+    id,
     content,
   });
 
   // Event-driven Micro Approach
+
+  await axios.post("http://localhost:5005/event", {
+    type: "CreateComment",
+    data: {
+      id,
+      comment: content,
+      postId,
+    },
+  });
 
   commentsByPost[postId] = comments;
   res.status(201).json(commentsByPost);

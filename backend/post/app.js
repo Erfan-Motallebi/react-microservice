@@ -13,10 +13,10 @@ app.use(express.json());
 app.use(cors());
 
 app.post("/post", async (req, res) => {
-  const randomByte = crypto.randomBytes(5).toString("hex");
+  const id = crypto.randomBytes(5).toString("hex");
   const { title } = req.body;
   posts.push({
-    id: randomByte,
+    id,
     title,
   });
 
@@ -24,7 +24,7 @@ app.post("/post", async (req, res) => {
   await axios.post("http://localhost:5005/event", {
     type: "CreatePost",
     data: {
-      id: randomByte,
+      id,
       title,
     },
   });

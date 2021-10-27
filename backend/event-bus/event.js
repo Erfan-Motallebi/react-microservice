@@ -15,7 +15,7 @@ app.post("/event", async (req, res) => {
   await axios.post("http://localhost:5000/event", req.body);
   await axios.post("http://localhost:5001/event", req.body);
   await axios.post("http://localhost:5002/event", req.body);
-
+  console.log({ eventEmitted: true, success: true });
   res.send({});
 });
 
