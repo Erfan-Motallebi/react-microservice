@@ -1,14 +1,14 @@
 {
-  "name": "comment",
+  "name": "event-bus",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "main": "event.js",
   "scripts": {
     "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "axios": "^0.24.0",
     "cors": "^2.8.5",
