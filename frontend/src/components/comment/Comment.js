@@ -3,18 +3,30 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Comment({ postId }) {
-  const [comments, setComments] = useState([]);
+  const [commentsData, setCommentsData] = useState([]);
 
-  console.log("Comments");
   const fetchComment = async () => {
-    const resp = await axios.request({
-      url: `http://localhost:5001/post/${postId}/comments`,
+    const { data } = await axios.request({
+      url: `http://localhost:5002/posts`,
+      // url: `http://localhost:5001/${postId}/comments`,
       headers: {
         "Content-Type": "application/json",
       },
       method: "GET",
     });
-    setComments(resp.data);
+
+    // setCommentsData(data)
+
+    /**
+     * Event-driven Micro Approach
+     */
+    // eslint-disable-next-line array-callback-return
+    const commentsRelated = data.find((post) => {
+      if (post.id === postId) {
+        return post.comments;
+      }
+    });
+    setCommentsData(commentsRelated);
   };
 
   useEffect(() => {
@@ -22,11 +34,21 @@ function Comment({ postId }) {
   }, []);
   return (
     <div>
+      {/* {
+        commentsData && commentsData.comments.length > 0 &&
+        <ul>
+        commentsData.comments.map(({id, content}) => {
+          return  return <li key={id}>{comment}</li>;
+        })
+        </ul>
+
+      } */}
       {
         <ul>
-          {comments.length > 0 &&
-            comments.map(({ id, content }) => {
-              return <li key={id}>{content}</li>;
+          {commentsData.comments &&
+            commentsData.comments.length > 0 &&
+            commentsData.comments.map(({ id, comment }) => {
+              return <li key={id}>{comment}</li>;
             })}
         </ul>
       }

@@ -9,7 +9,8 @@ function Posts() {
   const [posts, setPosts] = useState([]);
   const fetchData = async () => {
     const response = await axios.request({
-      url: "http://localhost:5000/posts",
+      url: "http://localhost:5002/posts",
+      // url: "http://localhost:5000/posts",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
