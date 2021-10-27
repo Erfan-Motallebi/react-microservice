@@ -20,6 +20,7 @@ app.post("/event", (req, res) => {
     posts.push({
       id,
       title,
+      comments: [],
     });
   } else if (type === "CreateComment") {
     const { id, comment, postId } = data;
