@@ -71,7 +71,7 @@ function Comment({ comments }) {
               return (
                 <li
                   key={id}
-                  className="list-group-item list-group-item-primary"
+                  className="list-group-item list-group-item-primary mt-2"
                 >
                   {comment}
                 </li>

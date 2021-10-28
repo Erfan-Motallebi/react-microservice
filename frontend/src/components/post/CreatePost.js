@@ -7,6 +7,11 @@ function CreatePost() {
 
   const submitHanlder = async (e) => {
     e.preventDefault();
+
+    if (post.trim() === "") {
+      alert("Empty Post");
+      return true;
+    }
     await axios.request({
       url: "http://localhost:5000/post",
       method: "POST",
