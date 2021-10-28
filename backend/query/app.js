@@ -15,6 +15,45 @@ app.get("/posts", (req, res) => {
 app.post("/event", (req, res) => {
   const { type, data } = req.body;
 
+  //#region Moderation Service Approach
+
+  // if (type === "CreatePost") {
+  //   const { id, title } = data;
+  //   posts.push({
+  //     id,
+  //     title,
+  //     comments: [],
+  //   });
+  // } else if (type === "CommentModerated") {
+  //   if (data?.status.trim() === "rejected") {
+  //     const { id, comment, postId } = data;
+  //     let newPosts = [];
+  //     newPosts = posts.map((post) => {
+  //       if (postId === post.id) {
+  //         post.comments.push({
+  //           id,
+  //           comment: "Comment was rejected through Moderator",
+  //           postId,
+  //         });
+  //       }
+  //       return post;
+  //     });
+  //     posts = newPosts;
+  //   } else if (data?.status.trim() === "approved") {
+  //     const { id, comment, postId } = data;
+  //     let newPosts = [];
+  //     newPosts = posts.map((post) => {
+  //       if (postId === post.id) {
+  //         post.comments.push({ id, comment, postId });
+  //       }
+  //       return post;
+  //     });
+  //     posts = newPosts;
+  //   }
+  // }
+
+  //#endregion
+
   if (type === "CreatePost") {
     const { id, title } = data;
     posts.push({
@@ -22,46 +61,19 @@ app.post("/event", (req, res) => {
       title,
       comments: [],
     });
-    // CommentCreate
-  } else if (type === "CommentModerated") {
-    // Moderation Service Approach
-    if (data?.status.trim() === "rejected") {
-      const { id, comment, postId } = data;
-      let newPosts = [];
-      newPosts = posts.map((post) => {
-        if (postId === post.id) {
-          post.comments.push({
-            id,
-            comment: "Comment was rejected through Moderator",
-            postId,
-          });
-        }
-        return post;
-      });
-      posts = newPosts;
-    } else if (data?.status.trim() === "approved") {
-      const { id, comment, postId } = data;
-      let newPosts = [];
-      newPosts = posts.map((post) => {
-        if (postId === post.id) {
-          post.comments.push({ id, comment, postId });
-        }
-        return post;
-      });
-      posts = newPosts;
-    }
+  }
+  if (type === "CreateComment") {
+    const { id, comment, postId } = data;
+    let newPosts = [];
+    newPosts = posts.map((post) => {
+      if (postId === post.id) {
+        post.comments.push({ id, comment, postId });
+      }
+      return post;
+    });
+    posts = newPosts;
   }
 
-  //   const { id, comment, postId } = data;
-  //   let newPosts = [];
-  //   newPosts = posts.map((post) => {
-  //     if (postId === post.id) {
-  //       post.comments.push({ id, comment, postId });
-  //     }
-  //     return post;
-  //   });
-  //   posts = newPosts;
-  // }
   console.log(posts);
 
   res.send({ Query: "Success" });
