@@ -12,7 +12,7 @@ app.post("/event", async (req, res) => {
 
   let newComment;
 
-  if (data.comment.includes("fuck")) {
+  if (data.comment.includes("fuck") || data.comment.includes("cunt")) {
     newComment = {
       type: "CommentModerated",
       data: {
