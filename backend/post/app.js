@@ -29,7 +29,7 @@ app.post("/post", async (req, res) => {
     },
   });
 
-  res.status(201).json(posts);
+  res.status(201).json({ posts });
 });
 
 app.get("/posts", async (req, res) => {

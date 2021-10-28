@@ -22,17 +22,46 @@ app.post("/event", (req, res) => {
       title,
       comments: [],
     });
-  } else if (type === "CreateComment") {
-    const { id, comment, postId } = data;
-    let newPosts = [];
-    newPosts = posts.map((post) => {
-      if (postId === post.id) {
-        post.comments.push({ id, comment, postId });
-      }
-      return post;
-    });
-    posts = newPosts;
+    // CommentCreate
+  } else if (type === "CommentModerated") {
+    // Moderation Service Approach
+    if (data?.status.trim() === "rejected") {
+      const { id, comment, postId } = data;
+      let newPosts = [];
+      newPosts = posts.map((post) => {
+        if (postId === post.id) {
+          post.comments.push({
+            id,
+            comment: "Comment was rejected through Moderator",
+            postId,
+          });
+        }
+        return post;
+      });
+      posts = newPosts;
+    } else if (data?.status.trim() === "approved") {
+      const { id, comment, postId } = data;
+      let newPosts = [];
+      newPosts = posts.map((post) => {
+        if (postId === post.id) {
+          post.comments.push({ id, comment, postId });
+        }
+        return post;
+      });
+      posts = newPosts;
+    }
   }
+
+  //   const { id, comment, postId } = data;
+  //   let newPosts = [];
+  //   newPosts = posts.map((post) => {
+  //     if (postId === post.id) {
+  //       post.comments.push({ id, comment, postId });
+  //     }
+  //     return post;
+  //   });
+  //   posts = newPosts;
+  // }
   console.log(posts);
 
   res.send({ Query: "Success" });
