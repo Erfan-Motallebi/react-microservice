@@ -6,31 +6,38 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.post("/event", async (req, res) => {
+app.post("/event", (req, res) => {
   const { data, type } = req.body;
   console.log("Event Recieved: " + type);
+  console.log({ data });
 
   let newComment;
 
-  if (data.comment.includes("fuck") || data.comment.includes("cunt")) {
-    newComment = {
-      type: "CommentModerated",
-      data: {
-        ...data,
-        status: "rejected",
-      },
-    };
-  } else {
-    newComment = {
-      type: "CommentModerated",
-      data: {
-        ...data,
-        status: "approved",
-      },
-    };
-  }
+  setTimeout(async () => {
+    if (
+      data.comment.includes("fuck") ||
+      data.comment.includes("cunt") ||
+      data.comment.includes("Fuck")
+    ) {
+      newComment = {
+        type: "CommentModerated",
+        data: {
+          ...data,
+          status: "rejected",
+        },
+      };
+    } else {
+      newComment = {
+        type: "CommentModerated",
+        data: {
+          ...data,
+          status: "approved",
+        },
+      };
+    }
+    await axios.post("http://localhost:5005/event", newComment);
+  }, 5000);
 
-  await axios.post("http://localhost:5005/event", newComment);
   res.send({ newComment });
 });
 
