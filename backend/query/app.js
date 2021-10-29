@@ -69,7 +69,7 @@ app.post("/event", (req, res) => {
       let newPosts = posts.map((post) => {
         if (postId === post.id) {
           const newComments = post.comments.map((comment) => {
-            if (comment.id) {
+            if (comment.id === id) {
               comment = {
                 ...comment,
                 comment: "Comment was rejected through the Moderator",
@@ -86,7 +86,16 @@ app.post("/event", (req, res) => {
       const { id, comment, postId } = data;
       let newPosts = posts.map((post) => {
         if (postId === post.id) {
-          post.comments = [{ id, comment, postId }];
+          const newComments = post.comments.map((cmnt) => {
+            if (cmnt.id) {
+              cmnt = {
+                ...cmnt,
+                comment,
+              };
+            }
+            return cmnt;
+          });
+          post.comments = newComments;
         }
         return post;
       });
