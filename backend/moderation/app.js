@@ -47,7 +47,9 @@ app.post("/event", (req, res) => {
 
   setTimeout(async () => {
     if (type === "CreateComment") {
-      data.comment.includes("fuck") || data.comment.includes("cunt")
+      data.comment.includes("fuck") ||
+      data.comment.includes("cunt") ||
+      data.comment.includes("Fuck")
         ? (data.status = "rejected")
         : (data.status = "approved");
 
