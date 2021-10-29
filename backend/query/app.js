@@ -87,7 +87,7 @@ app.post("/event", (req, res) => {
       let newPosts = posts.map((post) => {
         if (postId === post.id) {
           const newComments = post.comments.map((cmnt) => {
-            if (cmnt.id) {
+            if (cmnt.id === id) {
               cmnt = {
                 ...cmnt,
                 comment,
