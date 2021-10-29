@@ -37,10 +37,11 @@ app.post("/event", async (req, res) => {
   await axios.post("http://localhost:5000/event", req.body);
   // Comment Service
   await axios.post("http://localhost:5001/event", req.body);
-  // Query Service
+  // All Query Service Requests
   if (type === "CreateComment") {
     // Moderation Service
     await axios.post("http://localhost:5002/event", req.body);
+    // Query Service
     await axios.post("http://localhost:5003/event", req.body);
   } else {
     await axios.post("http://localhost:5002/event", req.body);
