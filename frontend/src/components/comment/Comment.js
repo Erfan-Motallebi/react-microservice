@@ -67,13 +67,13 @@ function Comment({ comments }) {
         // </ul>
         <ul className="list-group">
           {comments &&
-            comments.map(({ id, comment }) => {
+            comments.map(({ id, content }) => {
               return (
                 <li
                   key={id}
                   className="list-group-item list-group-item-primary mt-2"
                 >
-                  {comment}
+                  {content}
                 </li>
               );
             })}

@@ -26,11 +26,11 @@ app.post("/event", (req, res) => {
   //   });
   // }
   // if (type === "CreateComment") {
-  //   const { id, comment, postId } = data;
+  //   const { id, content, postId } = data;
   //   let newPosts = [];
   //   newPosts = posts.map((post) => {
   //     if (postId === post.id) {
-  //       post.comments.push({ id, comment, postId });
+  //       post.comments.push({ id, content, postId });
   //     }
   //     return post;
   //   });
@@ -50,13 +50,13 @@ app.post("/event", (req, res) => {
   //   });
   // } else if (type === "CommentModerated") {
   //   if (data?.status.trim() === "rejected") {
-  //     const { id, comment, postId } = data;
+  //     const { id, content, postId } = data;
   //     let newPosts = [];
   //     newPosts = posts.map((post) => {
   //       if (postId === post.id) {
   //         post.comments.push({
   //           id,
-  //           comment: "Comment was rejected through Moderator",
+  //           content: "Comment was rejected through Moderator",
   //           postId,
   //         });
   //       }
@@ -64,11 +64,11 @@ app.post("/event", (req, res) => {
   //     });
   //     posts = newPosts;
   //   } else if (data?.status.trim() === "approved") {
-  //     const { id, comment, postId } = data;
+  //     const { id, content, postId } = data;
   //     let newPosts = [];
   //     newPosts = posts.map((post) => {
   //       if (postId === post.id) {
-  //         post.comments.push({ id, comment, postId });
+  //         post.comments.push({ id, content, postId });
   //       }
   //       return post;
   //     });
@@ -96,7 +96,7 @@ app.post("/event", (req, res) => {
   //           if (comment.id === id) {
   //             comment = {
   //               ...comment,
-  //               comment: "Comment was rejected through the Moderator",
+  //               content: "Comment was rejected through the Moderator",
   //             };
   //           }
   //           return comment;
@@ -149,14 +149,15 @@ app.post("/event", (req, res) => {
     });
   }
   if (type === "CreateComment") {
-    const { id, postId } = data;
+    const { id, postId, status } = data;
     let newPosts = [];
     newPosts = posts.map((post) => {
       if (postId === post.id) {
         post.comments.push({
           id,
-          comment: "Pending - Moderation Service is watching . . .",
+          content: "Pending - Moderation Service is watching . . .",
           postId,
+          status,
         });
       }
       return post;
@@ -164,7 +165,7 @@ app.post("/event", (req, res) => {
     posts = newPosts;
   }
   if (type === "CommentUpdated") {
-    const { id, comment, postId } = data;
+    const { id, content, postId, status } = data;
     let newPosts = posts.map((post) => {
       if (postId === post.id) {
         post.comments = post.comments.map((cmnt) => {
@@ -172,7 +173,8 @@ app.post("/event", (req, res) => {
             cmnt = {
               id,
               postId,
-              comment,
+              content,
+              status,
             };
           }
           return cmnt;

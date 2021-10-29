@@ -26,7 +26,7 @@ app.post("/post/:postId/comment", async (req, res) => {
   //   type: "CreateComment",
   //   data: {
   //     id,
-  //     comment: content,
+  //     content,
   //     postId,
   //   },
   // });
@@ -40,7 +40,7 @@ app.post("/post/:postId/comment", async (req, res) => {
     type: "CreateComment",
     data: {
       id,
-      comment: content,
+      content,
       postId,
       status: "Pending",
     },
