@@ -15,7 +15,31 @@ app.get("/posts", (req, res) => {
 app.post("/event", (req, res) => {
   const { type, data } = req.body;
 
-  //#region Moderation Service Approach - First Approach
+  //#region First-look Microservice Approach without using moderation Service
+
+  // if (type === "CreatePost") {
+  //   const { id, title } = data;
+  //   posts.push({
+  //     id,
+  //     title,
+  //     comments: [],
+  //   });
+  // }
+  // if (type === "CreateComment") {
+  //   const { id, comment, postId } = data;
+  //   let newPosts = [];
+  //   newPosts = posts.map((post) => {
+  //     if (postId === post.id) {
+  //       post.comments.push({ id, comment, postId });
+  //     }
+  //     return post;
+  //   });
+  //   posts = newPosts;
+  // }
+
+  //#endregion
+
+  //#region Second Approach Moderation Service Approach - First Approach - Without Pending Status
 
   // if (type === "CreatePost") {
   //   const { id, title } = data;
@@ -54,67 +78,7 @@ app.post("/event", (req, res) => {
 
   //#endregion
 
-  //#region  Second Approach of Moderation Service
-
-  if (type === "CreatePost") {
-    const { id, title } = data;
-    posts.push({
-      id,
-      title,
-      comments: [],
-    });
-  } else if (type === "CommentModerated") {
-    if (data?.status.trim() === "rejected") {
-      const { id, postId } = data;
-      let newPosts = posts.map((post) => {
-        if (postId === post.id) {
-          const newComments = post.comments.map((comment) => {
-            if (comment.id === id) {
-              comment = {
-                ...comment,
-                comment: "Comment was rejected through the Moderator",
-              };
-            }
-            return comment;
-          });
-          post.comments = newComments;
-        }
-        return post;
-      });
-      posts = newPosts;
-    } else if (data?.status.trim() === "approved") {
-      const { id, comment, postId } = data;
-      let newPosts = posts.map((post) => {
-        if (postId === post.id) {
-          const newComments = post.comments.map((cmnt) => {
-            if (cmnt.id === id) {
-              cmnt = {
-                ...cmnt,
-                comment,
-              };
-            }
-            return cmnt;
-          });
-          post.comments = newComments;
-        }
-        return post;
-      });
-      posts = newPosts;
-    }
-  } else if (type === "CreateComment") {
-    const {
-      data: { id, postId },
-    } = req.body;
-    let newPosts = posts.map((post) => {
-      if (postId === post.id) {
-        post.comments.push({ id, comment: "Pending - Checking Posts . . . " });
-      }
-      return post;
-    });
-    posts = newPosts;
-  }
-
-  //#endregion
+  //#region  Second Approach of Moderation Service with Pending Status
 
   // if (type === "CreatePost") {
   //   const { id, title } = data;
@@ -123,18 +87,103 @@ app.post("/event", (req, res) => {
   //     title,
   //     comments: [],
   //   });
-  // }
-  // if (type === "CreateComment") {
-  //   const { id, comment, postId } = data;
-  //   let newPosts = [];
-  //   newPosts = posts.map((post) => {
+  // } else if (type === "CommentModerated") {
+  //   if (data?.status.trim() === "rejected") {
+  //     const { id, postId } = data;
+  //     let newPosts = posts.map((post) => {
+  //       if (postId === post.id) {
+  //         const newComments = post.comments.map((comment) => {
+  //           if (comment.id === id) {
+  //             comment = {
+  //               ...comment,
+  //               comment: "Comment was rejected through the Moderator",
+  //             };
+  //           }
+  //           return comment;
+  //         });
+  //         post.comments = newComments;
+  //       }
+  //       return post;
+  //     });
+  //     posts = newPosts;
+  //   } else if (data?.status.trim() === "approved") {
+  //     const { id, comment, postId } = data;
+  //     let newPosts = posts.map((post) => {
+  //       if (postId === post.id) {
+  //         const newComments = post.comments.map((cmnt) => {
+  //           if (cmnt.id === id) {
+  //             cmnt = {
+  //               ...cmnt,
+  //               comment,
+  //             };
+  //           }
+  //           return cmnt;
+  //         });
+  //         post.comments = newComments;
+  //       }
+  //       return post;
+  //     });
+  //     posts = newPosts;
+  //   }
+  // } else if (type === "CreateComment") {
+  //   const {
+  //     data: { id, postId },
+  //   } = req.body;
+  //   let newPosts = posts.map((post) => {
   //     if (postId === post.id) {
-  //       post.comments.push({ id, comment, postId });
+  //       post.comments.push({ id, comment: "Pending - Checking Posts . . . " });
   //     }
   //     return post;
   //   });
   //   posts = newPosts;
   // }
+
+  //#endregion
+
+  if (type === "CreatePost") {
+    const { id, title } = data;
+    posts.push({
+      id,
+      title,
+      comments: [],
+    });
+  }
+  if (type === "CreateComment") {
+    const { id, postId } = data;
+    let newPosts = [];
+    newPosts = posts.map((post) => {
+      if (postId === post.id) {
+        post.comments.push({
+          id,
+          comment: "Pending - Moderation Service is watching . . .",
+          postId,
+        });
+      }
+      return post;
+    });
+    posts = newPosts;
+  }
+  if (type === "CommentUpdated") {
+    const { id, comment, postId } = data;
+    let newPosts = posts.map((post) => {
+      if (postId === post.id) {
+        post.comments = post.comments.map((cmnt) => {
+          if (cmnt.id === id) {
+            cmnt = {
+              id,
+              postId,
+              comment,
+            };
+          }
+          return cmnt;
+        });
+      }
+      return post;
+    });
+    posts = newPosts;
+  }
+
+  //#endregion
 
   res.send({ Query: "Success" });
 });
