@@ -66,14 +66,18 @@ app.post("/event", (req, res) => {
   } else if (type === "CommentModerated") {
     if (data?.status.trim() === "rejected") {
       const { id, postId } = data;
-      let newPosts = [];
-      newPosts = posts.map((post) => {
+      let newPosts = posts.map((post) => {
         if (postId === post.id) {
-          post.comments = {
-            id,
-            comment: "Comment was rejected through Moderator",
-            postId,
-          };
+          const newComments = post.comments.map((comment) => {
+            if (comment.id) {
+              comment = {
+                ...comment,
+                comment: "Comment was rejected through the Moderator",
+              };
+            }
+            return comment;
+          });
+          post.comments = newComments;
         }
         return post;
       });
@@ -82,7 +86,7 @@ app.post("/event", (req, res) => {
       const { id, comment, postId } = data;
       let newPosts = posts.map((post) => {
         if (postId === post.id) {
-          post.comments = { id, comment, postId };
+          post.comments = [{ id, comment, postId }];
         }
         return post;
       });
