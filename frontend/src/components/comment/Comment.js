@@ -67,13 +67,21 @@ function Comment({ comments }) {
         // </ul>
         <ul className="list-group">
           {comments &&
-            comments.map(({ id, content }) => {
+            comments.map(({ id, content, status }) => {
+              let updatedContent;
+              if (status === "pending")
+                updatedContent = "Pending . . . - It's being supervised";
+              else if (status === "rejected")
+                updatedContent =
+                  "Content contained offensice words - rejected.";
+              else if (status === "approved") updatedContent = content;
+
               return (
                 <li
                   key={id}
                   className="list-group-item list-group-item-primary mt-2"
                 >
-                  {content}
+                  {updatedContent}
                 </li>
               );
             })}

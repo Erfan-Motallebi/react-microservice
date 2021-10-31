@@ -14,12 +14,14 @@ app.post("/post/:postId/comment", async (req, res) => {
   const { content } = req.body;
   const { postId } = req.params;
   const id = crypto.randomBytes(5).toString("hex");
+  // Slicing the previous object of the comment database
   let comments = commentsByPost[postId] || [];
   comments.push({
     id,
     content,
   });
 
+  commentsByPost[postId] = comments;
   //#region Event-driven Micro Approach
 
   // await axios.post("http://localhost:5005/event", {
@@ -36,19 +38,18 @@ app.post("/post/:postId/comment", async (req, res) => {
   //#endregion
 
   //#region Event-driven Micro Approach melded with Moderation Service / Comment Service
-  await axios.post("http://locahost:5005/event", {
+  await axios.post("http://localhost:5005/event", {
     type: "CreateComment",
     data: {
       id,
       content,
       postId,
-      status: "Pending",
+      status: "pending",
     },
   });
 
   //#endregion
 
-  commentsByPost[postId] = comments;
   res.status(201).json(commentsByPost);
 });
 
