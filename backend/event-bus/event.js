@@ -11,7 +11,13 @@ app.use(
 );
 app.use(cors());
 
-app.post("/event", async (req, res) => {
+const events = [];
+
+app.get("/events", (req, res) => {
+  res.send(events);
+});
+
+app.post("/events", async (req, res) => {
   //#region First Simplest Microservice
 
   // // Post Service
@@ -64,6 +70,21 @@ app.post("/event", async (req, res) => {
 
   //#region Third Approach of Filtering comment - | Third Method  [ Comment Service + Moderation Service ]
 
+  // // Post Service
+  // await axios.post("http://localhost:5000/event", req.body);
+  // // Comment Service
+  // await axios.post("http://localhost:5001/event", req.body);
+  // // Query Service
+  // await axios.post("http://localhost:5002/event", req.body);
+  // // Moderation Service
+  // await axios.post("http://localhost:5003/event", req.body);
+
+  //#endregion
+
+  //#region Third approach of Filtering comment | [ Comment Service + Moderation serivce] + Missing Events
+
+  events.push(req.body);
+
   // Post Service
   await axios.post("http://localhost:5000/event", req.body);
   // Comment Service
@@ -73,7 +94,7 @@ app.post("/event", async (req, res) => {
   // Moderation Service
   await axios.post("http://localhost:5003/event", req.body);
 
-  console.log({ eventEmitted: true, success: true });
+  console.log({ eventEmitted: true, success: true, Saved: true });
   res.send({});
 });
 
