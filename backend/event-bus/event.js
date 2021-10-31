@@ -17,7 +17,7 @@ app.get("/events", (req, res) => {
   res.send(events);
 });
 
-app.post("/events", async (req, res) => {
+app.post("/event", async (req, res) => {
   //#region First Simplest Microservice
 
   // // Post Service
@@ -90,13 +90,15 @@ app.post("/events", async (req, res) => {
   // Comment Service
   await axios.post("http://localhost:5001/event", req.body);
   // Query Service
-  await axios.post("http://localhost:5002/event", req.body);
+  // await axios.post("http://localhost:5002/event", req.body);
   // Moderation Service
   await axios.post("http://localhost:5003/event", req.body);
 
   console.log({ eventEmitted: true, success: true, Saved: true });
   res.send({});
 });
+
+//#endregion
 
 app.listen(5005, () => {
   console.log("Event bus is on http://localhost:5005");
