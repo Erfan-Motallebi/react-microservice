@@ -15,9 +15,9 @@ app.post("/event", (req, res) => {
   // let newComment;
   // setTimeout(async () => {
   //   if (
-  //     data.comment.includes("fuck") ||
-  //     data.comment.includes("cunt") ||
-  //     data.comment.includes("Fuck")
+  //     data.content.includes("fuck") ||
+  //     data.content.includes("cunt") ||
+  //     data.content.includes("Fuck")
   //   ) {
   //     newComment = {
   //       type: "CommentModerated",
@@ -47,9 +47,9 @@ app.post("/event", (req, res) => {
 
   setTimeout(async () => {
     if (type === "CreateComment") {
-      data.comment.includes("fuck") ||
-      data.comment.includes("cunt") ||
-      data.comment.includes("Fuck")
+      data.content.includes("fuck") ||
+      data.content.includes("cunt") ||
+      data.content.includes("Fuck")
         ? (data.status = "rejected")
         : (data.status = "approved");
 
