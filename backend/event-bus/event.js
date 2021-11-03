@@ -90,7 +90,7 @@ app.post("/event", async (req, res) => {
   // Comment Service
   await axios.post("http://localhost:5001/event", req.body);
   // Query Service
-  // await axios.post("http://localhost:5002/event", req.body);
+  await axios.post("http://localhost:5002/event", req.body);
   // Moderation Service
   await axios.post("http://localhost:5003/event", req.body);
 
