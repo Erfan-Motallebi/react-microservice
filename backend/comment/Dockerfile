@@ -1,6 +1,6 @@
 FROM node:16-alpine3.11
 
-WORKDIR /usr/app/comment
+WORKDIR /usr/app
 
 COPY ./package.json ./
 
