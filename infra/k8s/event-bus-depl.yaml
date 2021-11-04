@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: post-depl
+  name: event-bus-depl
   labels:
-    app: post
+    app: event-bus
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: post
+      app: event-bus
   template:
     metadata:
       labels:
-        app: post
+        app: event-bus
     spec:
       containers:
-        - name: post
-          image: node-service/post:0.0.3
+        - name: event-bus
+          image: node-service/event-bus:0.0.1
