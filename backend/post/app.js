@@ -21,7 +21,16 @@ app.post("/post", async (req, res) => {
   });
 
   // event-driven Micro approach
-  await axios.post("http://localhost:5005/event", {
+  // await axios.post("http://localhost:5005/event", {
+  //   type: "CreatePost",
+  //   data: {
+  //     id,
+  //     title,
+  //   },
+  // });
+
+  // Kubernetes + ClusterIp - within pods in the cluster
+  await axios.post("http://event-bus-clusterip-srv:5005/event", {
     type: "CreatePost",
     data: {
       id,

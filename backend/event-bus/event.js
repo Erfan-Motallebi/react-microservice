@@ -83,16 +83,31 @@ app.post("/event", async (req, res) => {
 
   //#region Third approach of Filtering comment | [ Comment Service + Moderation serivce] + Missing Events
 
+  // events.push(req.body);
+
+  // // Post Service
+  // await axios.post("http://localhost:5000/event", req.body);
+  // // Comment Service
+  // await axios.post("http://localhost:5001/event", req.body);
+  // // Query Service
+  // await axios.post("http://localhost:5002/event", req.body);
+  // // Moderation Service
+  // await axios.post("http://localhost:5003/event", req.body);
+
+  //#endregion
+
+  //#region Third approach of filtering commands through [ Kubternetes + ClusterIP]
+
   events.push(req.body);
 
   // Post Service
-  await axios.post("http://localhost:5000/event", req.body);
+  await axios.post("http://post-clusterip-srv:5000/event", req.body);
   // Comment Service
-  await axios.post("http://localhost:5001/event", req.body);
+  // await axios.post("http://localhost:5001/event", req.body);
   // Query Service
-  await axios.post("http://localhost:5002/event", req.body);
+  // await axios.post("http://localhost:5002/event", req.body);
   // Moderation Service
-  await axios.post("http://localhost:5003/event", req.body);
+  // await axios.post("http://localhost:5003/event", req.body);
 
   console.log({ eventEmitted: true, success: true, Saved: true });
   res.send({});
