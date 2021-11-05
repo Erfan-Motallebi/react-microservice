@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: comment-depl
+  name: moderation-depl
   labels:
-    app: comment
+    app: moderation
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: comment
+      app: moderation
   template:
     metadata:
       labels:
-        app: comment
+        app: moderation
     spec:
       containers:
-        - name: comment
-          image: node-service/comment:0.0.3
+        - name: moderation
+          image: node-service/moderation:0.0.1

@@ -247,9 +247,9 @@ app.post("/event", (req, res) => {
 app.listen(5002, async () => {
   console.log("Post Server is running on http://localhost:5002");
 
-  const res = await axios.get("http://localhost:5005/events");
-  for (const event of res.data) {
-    console.log("Processing Events: " + event.type);
-    handleEvents({ type: event.type, data: event.data });
-  }
+  // const res = await axios.get("http://event-bus-clusterip-srv:5005/events");
+  // for (const event of res.data) {
+  //   console.log("Processing Events: " + event.type);
+  //   handleEvents({ type: event.type, data: event.data });
+  // }
 });

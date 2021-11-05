@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: comment-depl
+  name: query-depl
   labels:
-    app: comment
+    app: query
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: comment
+      app: query
   template:
     metadata:
       labels:
-        app: comment
+        app: query
     spec:
       containers:
-        - name: comment
-          image: node-service/comment:0.0.3
+        - name: query
+          image: node-service/query:0.0.1

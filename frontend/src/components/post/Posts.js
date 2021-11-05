@@ -9,8 +9,9 @@ function Posts() {
   const [posts, setPosts] = useState([]);
   const fetchData = async () => {
     const response = await axios.request({
-      url: "http://localhost:5002/posts",
+      // url: "http://localhost:5002/posts",
       // url: "http://localhost:5000/posts",
+      url: "http://192.168.49.2:30009/posts",
       method: "GET",
       headers: {
         "Content-Type": "application/json",

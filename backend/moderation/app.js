@@ -53,7 +53,11 @@ app.post("/event", (req, res) => {
         ? (data.status = "rejected")
         : (data.status = "approved");
 
-      await axios.post("http://localhost:5005/event", {
+      // await axios.post("http://localhost:5005/event", {
+      //   type: "CommentModerated",
+      //   data,
+      // });
+      await axios.post("http://event-bus-clusterip-srv:5005/event", {
         type: "CommentModerated",
         data,
       });
