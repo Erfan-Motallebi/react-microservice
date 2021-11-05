@@ -103,7 +103,7 @@ app.post("/event", async (req, res) => {
   // Post Service
   await axios.post("http://post-clusterip-srv:5000/event", req.body);
   // Comment Service
-  // await axios.post("http://localhost:5001/event", req.body);
+  await axios.post("http://comment-clusterip-srv:5001/event", req.body);
   // Query Service
   // await axios.post("http://localhost:5002/event", req.body);
   // Moderation Service

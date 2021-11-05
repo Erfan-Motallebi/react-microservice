@@ -38,7 +38,7 @@ app.post("/post/:postId/comment", async (req, res) => {
   //#endregion
 
   //#region Event-driven Micro Approach melded with Moderation Service / Comment Service
-  await axios.post("http://localhost:5005/event", {
+  await axios.post("http://event-bus-clusterip-srv:5005/event", {
     type: "CreateComment",
     data: {
       id,
@@ -65,8 +65,19 @@ app.get("/post/:postId/comments", (req, res) => {
 app.post("/event", async (req, res) => {
   const { type, data } = req.body;
   console.log("Event Recieved: " + type);
+  //#region Comment Mode Generation
+  // if (type === "CommentModerated") {
+  //   await axios.post("http://localhost:5005/event", {
+  //     type: "CommentUpdated",
+  //     data,
+  //   });
+  // }
+
+  //#endregion
+
+  // Kubernetes + ClusterIp Mode [ Docker ]
   if (type === "CommentModerated") {
-    await axios.post("http://localhost:5005/event", {
+    await axios.post("http://event-bus-clusterip-srv:5005/event", {
       type: "CommentUpdated",
       data,
     });

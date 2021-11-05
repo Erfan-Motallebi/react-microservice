@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: post-depl
+  name: comment-depl
   labels:
-    app: post
+    app: comment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: post
+      app: comment
   template:
     metadata:
       labels:
-        app: post
+        app: comment
     spec:
       containers:
-        - name: post
-          image: node-service/post:0.0.2
+        - name: comment
+          image: node-service/comment:0.0.2
