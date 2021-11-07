@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: post-depl
+  name: client-depl
   labels:
-    app: post
+    app: client
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: post
+      app: client
   template:
     metadata:
       labels:
-        app: post
+        app: client
     spec:
       containers:
-        - name: post
-          image: erfanrider/post-service
+        - name: client
+          image: client-server/client

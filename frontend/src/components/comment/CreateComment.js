@@ -12,7 +12,8 @@ function CreateComment({ postId }) {
     }
     await axios.request({
       // url: `http://localhost:5001/post/${postId}/comment`,
-      url: `http://192.168.49.2:30008/post/${postId}/comment`,
+      // url: `http://192.168.49.2:30008/post/${postId}/comment`,
+      url: `http://post-service.com/post/${postId}/comment`,
       method: "POST",
       headers: {
         "Content-Type": "application/json",

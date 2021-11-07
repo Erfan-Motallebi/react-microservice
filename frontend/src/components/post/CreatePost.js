@@ -14,7 +14,8 @@ function CreatePost() {
     }
     await axios.request({
       // url: "http://localhost:5000/post",
-      url: "http://192.168.49.2:30007/post",
+      // url: "http://192.168.49.2:30007/post",
+      url: "http://post-service.com/post",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
