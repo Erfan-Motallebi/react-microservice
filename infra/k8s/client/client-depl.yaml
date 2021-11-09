@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: client
-          image: client-server/client
+          image: client-react/client
