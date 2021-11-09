@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: comment
-          image: node-service/comment:0.0.3
+          image: erfanrider/comment

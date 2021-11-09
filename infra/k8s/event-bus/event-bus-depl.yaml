@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: event-bus
-          image: node-service/event-bus:0.0.2
+          image: erfanrider/event-bus

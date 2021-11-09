@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: query
-          image: node-service/query:0.0.2
+          image: erfanrider/query

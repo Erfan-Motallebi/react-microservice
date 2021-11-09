@@ -56,6 +56,5 @@ app.post("/event", async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("v5");
   console.log("Post Server is running on 💠 http://localhost:5000");
 });

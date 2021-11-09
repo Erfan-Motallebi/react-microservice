@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: moderation
-          image: node-service/moderation:0.0.1
+          image: erfanrider/moderation

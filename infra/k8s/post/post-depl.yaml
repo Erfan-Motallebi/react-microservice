@@ -16,4 +16,4 @@ spec:
     spec:
       containers:
         - name: post
-          image: erfanrider/post-service
+          image: erfanrider/post
