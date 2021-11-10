@@ -32,7 +32,7 @@ function CreatePost() {
     <section>
       <article>
         <header>
-          <h1 className="bg-blue">Create Post</h1>
+          <h1 className="bg-blue"> - Create Post - </h1>
         </header>
         <div className="mt-4">
           <form onSubmit={submitHanlder}>
