@@ -1,0 +1,64 @@
+apiVersion: skaffold/v2beta25
+kind: Config
+metadata:
+  name: post-skaffold
+deploy:
+  kubectl:
+    manifests:
+      - "./infra/k8s/*"
+build:
+  local:
+    push: false
+  artifacts:
+    - image: erfanrider/client
+      context: frontend
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "src/**/*.js"
+
+    - image: erfanrider/comment
+      context: backend/comment
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
+    - image: erfanrider/event-bus
+      context: backend/event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
+
+    - image: erfanrider/moderation
+      context: backend/moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
+
+    - image: erfanrider/post
+      context: backend/post
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
+
+    - image: erfanrider/query
+      context: backend/query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: "*.js"
